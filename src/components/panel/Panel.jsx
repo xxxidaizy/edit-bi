@@ -41,7 +41,6 @@ const Panel = (props) => {
                 className="panel__container-head-close"
                 onClick={handleClick}
               >
-                x
               </div>
             </div>
             <div className="panel__container-main">

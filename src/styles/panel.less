@@ -11,6 +11,7 @@
   &__container {
     background: #1b1b1b;
     color: #e3e3e3;
+    height: 100%;
     padding: 10px;
 
     &-head {
@@ -26,6 +27,10 @@
 
       &-close {
         cursor: pointer;
+
+        &::before {
+          content: "\2715";
+        }
         
       }
     }
