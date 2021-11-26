@@ -1,10 +1,15 @@
 import React from "react";
-import '../../styles/dashboard.less';
+import '@styles/dashboard.less';
 
 const Dashboard = () => {
   return (
     <div className="dashboard">
-      Dashboard
+      <div className="dashboard__head">
+        Dashboard
+      </div>
+      <div className="dashboard__main">
+        Pie
+      </div>
     </div>
   )
 }

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Router from './route/index.js';
 import reportWebVitals from './reportWebVitals';
-import '../src/styles/common.less';
+import '@styles/common.less';
 
 ReactDOM.render(
   <Router />,

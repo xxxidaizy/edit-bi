@@ -1,43 +1,54 @@
-import React, { useEffect } from "react";
-import * as echarts from 'echarts';
-import '../../styles/view.less';
+import React, { useEffect, useState } from "react";
+import ReactECharts from 'echarts-for-react';
+import { Rnd } from "react-rnd";
+import { option } from './options'
+import '@styles/view.less';
 
-const View = () => {
+const View = (props) => {
 
-  useEffect(() => {
-    init()
-  }, []);
+  const onChartReady = (param, echarts) => {
+    console.log('onChartReady:', param, echarts)
+  }
 
-  const init = () => {
-    // 基于准备好的dom，初始化echarts实例
-    let myChart = echarts.init(document.getElementById('charts'), 'dark');
+  const onChartClick = (param, echarts) => {
+    console.log('onChartClick:', param, echarts)
+  }
 
-    // 绘制图表
-    myChart.setOption({
-      title: {
-        text: 'ECharts 入门示例',
-      },
-      tooltip: {},
-      xAxis: {
-        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-      },
-      yAxis: {},
-      series: [
-        {
-          name: '销量',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
-        }
-      ],
-    });
-    console.log(myChart.getOption())
+  const onChartLegendselectchanged = (param, echarts) => {
+    console.log('onChartLegendselectchanged:', param, echarts)
+  }
 
+  const handleItemClick = () => {
+    console.log(1111)
+    // TODO: 设置当前操作Item，用于显示属性Panel内容
+  }
+
+  const renderEcharts = () => {
+    return (
+      <ReactECharts
+        option={option}
+        style={{ height: '100%' }}
+        theme="dark"
+        onChartReady={onChartReady}
+        onEvents={{
+          'click': onChartClick,
+          'legendselectchanged': onChartLegendselectchanged
+        }}
+      />
+    )
   }
 
   return (
     <div className="view">
       <div className="view__main">
-        <div id="charts" style={{ width: 600, height: 400 }}></div>
+        <Rnd
+          default={{ x: 0, y: 0, width: 400, height: 300 }}
+          bounds=".view"
+        >
+          <div onClick={handleItemClick} className="view__main-item">
+            {renderEcharts()}
+          </div>
+        </Rnd>
       </div>
     </div>
   )
