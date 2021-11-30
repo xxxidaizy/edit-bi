@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactECharts from 'echarts-for-react';
 import { Rnd } from "react-rnd";
-import { option } from './options'
+import { options } from './options'
 import '@styles/view.less';
 
 const View = (props) => {
@@ -23,32 +23,33 @@ const View = (props) => {
     // TODO: 设置当前操作Item，用于显示属性Panel内容
   }
 
-  const renderEcharts = () => {
+  const renderRndCharts = (option, key) => {
     return (
-      <ReactECharts
-        option={option}
-        style={{ height: '100%' }}
-        theme="dark"
-        onChartReady={onChartReady}
-        onEvents={{
-          'click': onChartClick,
-          'legendselectchanged': onChartLegendselectchanged
-        }}
-      />
-    )
+      <Rnd
+        key={key}
+        default={{ x: 0, y: 0, width: 400, height: 300 }}
+        bounds=".view"
+      >
+        <div onClick={handleItemClick} className="view__main-item">
+          <ReactECharts
+            option={option}
+            style={{ height: '100%' }}
+            theme="dark"
+            onChartReady={onChartReady}
+            onEvents={{
+              'click': onChartClick,
+              'legendselectchanged': onChartLegendselectchanged
+            }}
+          />
+        </div>
+      </Rnd>
+    );
   }
 
   return (
     <div className="view">
-      <div className="view__main">
-        <Rnd
-          default={{ x: 0, y: 0, width: 400, height: 300 }}
-          bounds=".view"
-        >
-          <div onClick={handleItemClick} className="view__main-item">
-            {renderEcharts()}
-          </div>
-        </Rnd>
+      <div className="view__main" id="view_container">
+        {['line', 'pie'].map((item, index) => renderRndCharts(options[item], index))}
       </div>
     </div>
   )
