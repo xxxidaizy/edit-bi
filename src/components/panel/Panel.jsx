@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { inject, observer } from "mobx-react";
 import { Rnd } from "react-rnd";
 import '@styles/panel.less';
 
@@ -6,12 +7,8 @@ const Panel = (props) => {
 
   const [open, setOpen] = useState(false);
 
-  const [options, setOptions] = useState({});
-
   const handleClick = () => {
     setOpen(!open);
-    setOptions(props.currentCharts.getOption?.())
-    console.log(options)
   }
 
   const handleDragStop = (e, d) => {
@@ -44,7 +41,15 @@ const Panel = (props) => {
               </div>
             </div>
             <div className="panel__container-main">
-              content 
+              content
+              <div className="panel__container-main-item">
+                <div className="panel__container-main-item-label">
+                  Title: 
+                </div>
+                <div className="panel__container-main-item-value">
+                  {props.chartsStore.current.title.text}
+                </div>
+              </div>
             </div>
           </div>
         </Rnd>
@@ -53,4 +58,4 @@ const Panel = (props) => {
   )
 }
 
-export default Panel;
+export default (inject('chartsStore'))(observer(Panel));

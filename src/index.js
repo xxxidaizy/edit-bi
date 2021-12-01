@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { Provider } from 'mobx-react';
+import stores from './mobx/index';
 import Router from './route/index.js';
 import reportWebVitals from './reportWebVitals';
 import '@styles/common.less';
+import './index.css';
 
 ReactDOM.render(
-  <Router />,
+  <Provider {...stores} >
+    <Router />
+  </Provider>,
   document.getElementById('root')
 );
 
