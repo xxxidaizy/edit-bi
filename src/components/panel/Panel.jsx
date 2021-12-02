@@ -5,6 +5,10 @@ import '@styles/panel.less';
 
 const Panel = (props) => {
 
+  const { current } = props.chartsStore;
+
+  console.log(22222, current, current.title)
+
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
@@ -47,7 +51,7 @@ const Panel = (props) => {
                   Title: 
                 </div>
                 <div className="panel__container-main-item-value">
-                  {props.chartsStore.current.title.text}
+                  {current?.title?.text}
                 </div>
               </div>
             </div>

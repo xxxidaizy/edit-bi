@@ -6,7 +6,7 @@ import { options } from './options'
 import '@styles/view.less';
 
 const View = (props) => {
-  const chartsStore = props.chartsStore;
+  const { chartsStore } = props;
 
   const onChartReady = (param, echarts) => {
     console.log('onChartReady:', param, echarts)
@@ -20,15 +20,14 @@ const View = (props) => {
     console.log('onChartLegendselectchanged:', param, echarts)
   }
 
-  const handleItemClick = (item) => {
-    console.log(1111, item)
+  const handleItemClick = (event, item) => {
+    event.stopPropagation();
     chartsStore.setCurrent(item);
-    // TODO: 设置当前操作Item，用于显示属性Panel内容
   }
 
   const renderRndCharts = (option) => {
     const position = { x: 0, y: 0, width: 400, height: 300 };
-    
+
     return (
       <Rnd
         key={option.id}
@@ -36,7 +35,7 @@ const View = (props) => {
         bounds=".view"
       >
         <div
-          onClick={() => handleItemClick(option)}
+          onClick={event => handleItemClick(event, option)}
           className="view__main-item"
         >
           <ReactECharts
@@ -55,8 +54,8 @@ const View = (props) => {
   }
 
   return (
-    <div className="view">
-      <div className="view__main" id="view_container">
+    <div className="view" onClick={event => handleItemClick(event, {})}>
+      <div id="view_container" className="view__main">
         {chartsStore.charts.map(item => renderRndCharts({
           ...options[item.type],
           id: item.id
